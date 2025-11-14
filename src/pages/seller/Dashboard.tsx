@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { UserNav } from "@/components/UserNav";
+import { MobileNav } from "@/components/MobileNav";
 import { supabase } from "@/lib/supabase";
 import { Plus, Package, ShoppingCart, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -109,7 +110,7 @@ const SellerDashboard = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pb-20 md:pb-8">
         {/* Stats */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           <Card>
@@ -228,6 +229,7 @@ const SellerDashboard = () => {
           </TabsContent>
         </Tabs>
       </div>
+      <MobileNav />
     </div>
   );
 };
