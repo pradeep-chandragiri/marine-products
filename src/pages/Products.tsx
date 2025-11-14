@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ProductCard } from "@/components/ProductCard";
+import { UserNav } from "@/components/UserNav";
 import { supabase } from "@/lib/supabase";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -77,6 +78,14 @@ const Products = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="border-b">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Marine Marketplace</h2>
+          <UserNav />
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold mb-8">Browse Marine Products</h1>
 

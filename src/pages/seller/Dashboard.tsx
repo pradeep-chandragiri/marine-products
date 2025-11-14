@@ -4,8 +4,9 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UserNav } from "@/components/UserNav";
 import { supabase } from "@/lib/supabase";
-import { Plus, Package, ShoppingCart, TrendingUp, LogOut } from "lucide-react";
+import { Plus, Package, ShoppingCart, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Product {
@@ -99,20 +100,12 @@ const SellerDashboard = () => {
     }
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    navigate("/");
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <div className="border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold">Seller Dashboard</h1>
-          <Button variant="outline" onClick={handleSignOut}>
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
-          </Button>
+          <UserNav />
         </div>
       </div>
 
