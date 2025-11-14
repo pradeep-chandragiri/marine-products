@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { UserNav } from "@/components/UserNav";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
@@ -81,6 +82,14 @@ const Orders = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="border-b">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Marine Marketplace</h2>
+          <UserNav />
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-8">
         <Button variant="ghost" onClick={() => navigate("/products")} className="mb-6">
           <ArrowLeft className="h-4 w-4 mr-2" />
