@@ -11,7 +11,16 @@ import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
 
-const CATEGORIES = ["Fish", "Shrimp", "Crab", "Lobster", "Oyster", "Squid", "Other"];
+const MARINE_CATEGORIES = [
+  "Fresh Fish",
+  "Shellfish",
+  "Crustaceans",
+  "Dried Seafood",
+  "Frozen Seafood",
+  "Canned Seafood",
+  "Marine Equipment",
+  "Fishing Gear"
+];
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -165,7 +174,7 @@ const ProductForm = () => {
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {CATEGORIES.map((cat) => (
+                    {MARINE_CATEGORIES.map((cat) => (
                       <SelectItem key={cat} value={cat}>
                         {cat}
                       </SelectItem>

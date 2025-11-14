@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { UserNav } from "@/components/UserNav";
+import { MobileNav } from "@/components/MobileNav";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
@@ -112,7 +113,7 @@ const Orders = () => {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 pb-20 md:pb-8">
             {orders.map((order) => (
               <Card key={order.id}>
                 <CardHeader>
@@ -169,6 +170,7 @@ const Orders = () => {
           </div>
         )}
       </div>
+      <MobileNav />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ProductCard } from "@/components/ProductCard";
 import { UserNav } from "@/components/UserNav";
+import { MobileNav } from "@/components/MobileNav";
 import { supabase } from "@/lib/supabase";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -127,13 +128,14 @@ const Products = () => {
             <p className="text-muted-foreground">No products found</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20 md:pb-8">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         )}
       </div>
+      <MobileNav />
     </div>
   );
 };
