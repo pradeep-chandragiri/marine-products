@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut, User } from "lucide-react";
+import { LogOut, User, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export const UserNav = () => {
@@ -49,13 +49,17 @@ export const UserNav = () => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => navigate(userRole === "seller" ? "/seller/dashboard" : "/products")}>
+        <DropdownMenuItem onClick={() => navigate("/profile")}>
           <User className="mr-2 h-4 w-4" />
+          <span>My Profile</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => navigate(userRole === "seller" ? "/seller/dashboard" : "/products")}>
+          <ShoppingCart className="mr-2 h-4 w-4" />
           <span>{userRole === "seller" ? "Dashboard" : "Browse Products"}</span>
         </DropdownMenuItem>
         {userRole === "buyer" && (
           <DropdownMenuItem onClick={() => navigate("/orders")}>
-            <User className="mr-2 h-4 w-4" />
+            <ShoppingCart className="mr-2 h-4 w-4" />
             <span>My Orders</span>
           </DropdownMenuItem>
         )}
