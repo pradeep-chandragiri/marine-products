@@ -9,6 +9,8 @@ import { MobileNav } from "@/components/MobileNav";
 import { supabase } from "@/lib/supabase";
 import { Plus, Package, ShoppingCart, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 
 interface Product {
   id: string;
@@ -96,6 +98,29 @@ const SellerDashboard = () => {
       toast({
         title: "Error",
         description: "Failed to load dashboard data",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleStatusUpdate = async (orderId: string, newStatus: string) => {
+    try {
+      const { error } = await supabase
+        .from("orders")
+        .update({ order_status: newStatus })
+        .eq("id", orderId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Status Updated",
+        description: `Order status changed to ${newStatus}`,
+      });
+      fetchDashboardData();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to update order status",
         variant: "destructive",
       });
     }
@@ -190,7 +215,12 @@ const SellerDashboard = () => {
           </TabsContent>
 
           <TabsContent value="orders" className="space-y-4">
-            <h2 className="text-2xl font-bold">Orders</h2>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Orders</h2>
+              <Badge variant="secondary" className="text-lg px-4 py-1">
+                {stats.totalOrders} Total
+              </Badge>
+            </div>
 
             <div className="grid gap-4">
               {orders.length === 0 ? (
@@ -201,25 +231,54 @@ const SellerDashboard = () => {
                 </Card>
               ) : (
                 orders.map((order) => (
-                  <Card key={order.id}>
+                  <Card key={order.id} className="hover:shadow-md transition-shadow">
                     <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1">
                           <CardTitle className="text-lg">{order.buyer_name}</CardTitle>
                           <CardDescription>
                             {order.products?.name} • {new Date(order.created_at).toLocaleDateString()}
                           </CardDescription>
                         </div>
                         <div className="text-right">
-                          <div className="text-xl font-bold">₹{order.total_price}</div>
-                          <div className="text-sm capitalize">{order.order_status}</div>
+                          <div className="text-xl font-bold text-primary">₹{order.total_price}</div>
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="space-y-1 text-sm">
-                        <p><strong>Phone:</strong> {order.buyer_phone}</p>
-                        <p><strong>Address:</strong> {order.delivery_address}</p>
+                      <div className="space-y-3">
+                        <div className="space-y-1 text-sm">
+                          <p><strong>Phone:</strong> {order.buyer_phone}</p>
+                          <p><strong>Address:</strong> {order.delivery_address}</p>
+                        </div>
+                        {order.order_status === "pending" && (
+                          <div className="pt-3 border-t">
+                            <label className="text-sm font-medium mb-2 block">Update Order Status:</label>
+                            <Select 
+                              defaultValue={order.order_status}
+                              onValueChange={(value) => handleStatusUpdate(order.id, value)}
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="pending">Pending</SelectItem>
+                                <SelectItem value="confirmed">Confirmed</SelectItem>
+                                <SelectItem value="delivered">Delivered</SelectItem>
+                                <SelectItem value="cancelled">Cancelled</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        )}
+                        {order.order_status !== "pending" && (
+                          <Badge className={`capitalize ${
+                            order.order_status === "confirmed" ? "bg-blue-500" :
+                            order.order_status === "delivered" ? "bg-green-500" :
+                            order.order_status === "cancelled" ? "bg-red-500" : ""
+                          }`}>
+                            {order.order_status}
+                          </Badge>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
