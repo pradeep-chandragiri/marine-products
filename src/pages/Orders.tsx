@@ -186,6 +186,16 @@ const Orders = () => {
                         <p className="text-sm font-medium">Delivery Address:</p>
                         <p className="text-sm text-muted-foreground">{order.delivery_address}</p>
                       </div>
+                      {order.order_status === "pending" && (
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => handleCancelOrder(order.id)}
+                          className="mt-3 w-full"
+                        >
+                          Cancel Order
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </CardContent>
