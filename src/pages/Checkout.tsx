@@ -9,6 +9,21 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft } from "lucide-react";
+import { z } from "zod";
+
+const checkoutSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name is too long"),
+  phone: z.string()
+    .trim()
+    .regex(/^[0-9+\-\s()]{10,15}$/, "Invalid phone number format"),
+  address: z.string()
+    .trim()
+    .min(10, "Please provide a complete address")
+    .max(500, "Address is too long")
+});
 
 interface Product {
   id: string;
@@ -67,6 +82,17 @@ const Checkout = () => {
     e.preventDefault();
     if (!user || !product) return;
 
+    // Validate form data
+    const result = checkoutSchema.safeParse(formData);
+    if (!result.success) {
+      toast({
+        title: "Validation Error",
+        description: result.error.errors[0].message,
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
       const { error } = await supabase
@@ -76,9 +102,9 @@ const Checkout = () => {
           product_id: product.id,
           quantity,
           total_price: product.price * quantity,
-          buyer_name: formData.name,
-          buyer_phone: formData.phone,
-          delivery_address: formData.address,
+          buyer_name: result.data.name,
+          buyer_phone: result.data.phone,
+          delivery_address: result.data.address,
           payment_method: "COD",
           order_status: "pending",
         }]);
@@ -175,6 +201,8 @@ const Checkout = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
+                    minLength={2}
+                    maxLength={100}
                   />
                 </div>
 
@@ -186,6 +214,8 @@ const Checkout = () => {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     required
+                    pattern="[0-9+\-\s()]{10,15}"
+                    placeholder="e.g., +91 98765 43210"
                   />
                 </div>
 
@@ -198,6 +228,8 @@ const Checkout = () => {
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     placeholder="Enter your complete delivery address"
                     required
+                    minLength={10}
+                    maxLength={500}
                   />
                 </div>
 
