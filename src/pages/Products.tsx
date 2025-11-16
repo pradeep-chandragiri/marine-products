@@ -80,20 +80,23 @@ const Products = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Marine Marketplace</h2>
+      <div className="border-b bg-background">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Marine Marketplace</h2>
           <UserNav />
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold mb-8">Browse Marine Products</h1>
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">Browse Marine Products</h1>
+          <p className="text-muted-foreground">Fresh, quality-certified marine products delivered to your door</p>
+        </div>
 
         {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search products..."
               value={searchTerm}
@@ -120,11 +123,11 @@ const Products = () => {
 
         {/* Products Grid */}
         {isLoading ? (
-          <div className="text-center py-12">
+          <div className="text-center py-16">
             <p className="text-muted-foreground">Loading products...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-16">
             <p className="text-muted-foreground">No products found</p>
           </div>
         ) : (
