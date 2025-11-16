@@ -80,34 +80,34 @@ const Products = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b bg-background">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Marine Marketplace</h2>
+      <div className="border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-40">
+        <div className="container mx-auto px-4 py-5 flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Marine Marketplace</h2>
           <UserNav />
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Browse Marine Products</h1>
-          <p className="text-muted-foreground">Fresh, quality-certified marine products delivered to your door</p>
+      <div className="container mx-auto px-4 py-10">
+        <div className="mb-10">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Browse Marine Products</h1>
+          <p className="text-lg text-muted-foreground">Fresh, quality-certified marine products delivered to your door</p>
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <div className="flex flex-col md:flex-row gap-4 mb-10">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
               placeholder="Search products..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-12 h-12 text-base"
             />
           </div>
 
           <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-full md:w-[200px]">
-              <SlidersHorizontal className="h-4 w-4 mr-2" />
+            <SelectTrigger className="w-full md:w-[240px] h-12">
+              <SlidersHorizontal className="h-5 w-5 mr-2" />
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
