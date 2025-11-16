@@ -58,17 +58,17 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Waves className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold">Marine Marketplace</span>
+        <CardHeader className="text-center space-y-2">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Waves className="h-6 w-6 text-foreground" />
+            <span className="text-xl font-bold">Marine Marketplace</span>
           </div>
-          <CardTitle className="text-2xl">
+          <CardTitle className="text-2xl font-bold">
             {roleParam === "seller" ? "Seller" : "Buyer"} Account
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-muted-foreground">
             {roleParam === "seller" 
               ? "Start selling marine products today" 
               : "Browse and buy fresh marine products"}
@@ -77,7 +77,7 @@ const Auth = () => {
 
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="login">Login</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
