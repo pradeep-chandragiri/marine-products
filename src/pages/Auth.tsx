@@ -58,17 +58,19 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center space-y-2">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Waves className="h-6 w-6 text-foreground" />
-            <span className="text-xl font-bold">Marine Marketplace</span>
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex items-center justify-center p-4">
+      <Card className="w-full max-w-md shadow-[var(--shadow-premium)] border-2 border-border/50">
+        <CardHeader className="text-center space-y-4 pb-6">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10">
+              <Waves className="h-10 w-10 text-primary" />
+            </div>
           </div>
+          <CardTitle className="text-3xl font-bold">Marine Marketplace</CardTitle>
           <CardTitle className="text-2xl font-bold">
             {roleParam === "seller" ? "Seller" : "Buyer"} Account
           </CardTitle>
-          <CardDescription className="text-muted-foreground">
+          <CardDescription className="text-base leading-relaxed">
             {roleParam === "seller" 
               ? "Start selling marine products today" 
               : "Browse and buy fresh marine products"}
@@ -77,9 +79,9 @@ const Auth = () => {
 
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-8 h-12 p-1">
+              <TabsTrigger value="login" className="font-semibold">Login</TabsTrigger>
+              <TabsTrigger value="signup" className="font-semibold">Sign Up</TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
