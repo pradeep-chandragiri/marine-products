@@ -3,11 +3,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ProductCard } from "@/components/ProductCard";
+import { SkeletonProductCard } from "@/components/SkeletonProductCard";
 import { UserNav } from "@/components/UserNav";
 import { MobileNav } from "@/components/MobileNav";
 import { supabase } from "@/lib/supabase";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { PageTransition } from "@/hooks/usePageTransition";
 
 interface Product {
   id: string;
@@ -78,9 +80,10 @@ const Products = () => {
   const categories = Array.from(new Set(products.map((p) => p.category)));
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-40">
+    <PageTransition>
+      <div className="min-h-screen bg-background">
+        {/* Header */}
+        <div className="border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-sm z-40">
         <div className="container mx-auto px-4 py-5 flex items-center justify-between">
           <h2 className="text-2xl font-bold">Marine Marketplace</h2>
           <UserNav />
@@ -123,15 +126,17 @@ const Products = () => {
 
         {/* Products Grid */}
         {isLoading ? (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground">Loading products...</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20 md:pb-8" role="status" aria-live="polite">
+            {[...Array(8)].map((_, i) => (
+              <SkeletonProductCard key={i} />
+            ))}
           </div>
         ) : filteredProducts.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-muted-foreground">No products found</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20 md:pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-20 md:pb-8 stagger">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -139,7 +144,8 @@ const Products = () => {
         )}
       </div>
       <MobileNav />
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

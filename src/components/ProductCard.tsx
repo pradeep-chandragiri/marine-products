@@ -19,7 +19,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <Card 
-      className="group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-premium)] hover:scale-[1.02] border-border/50"
+      className="group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-premium)] border-border/50 hover-lift motion-blur-in"
       onClick={() => navigate(`/product/${product.id}`)}
     >
       <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-muted/50 to-muted">
